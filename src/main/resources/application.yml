@@ -1,0 +1,27 @@
+server:
+  port: 5001
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: workflow
+  cloud:
+    nacos:
+      discovery:
+        server-addr: nacos:8848
+        group: CLOUD-WORKSPACE
+        namespace: 5371a678-df46-42bf-97b1-6c47f99469f6
+  datasource:
+    url: jdbc:mysql://172.16.1.100:3306/camunda?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai&nullDatabaseMeansCurrent=true
+    username: root
+    password: myadmin@#123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+camunda.bpm:
+  admin-user:
+    id: admin
+    password: myadmin@#123
+    firstName: Admin
+  filter:
+    create: All tasks
