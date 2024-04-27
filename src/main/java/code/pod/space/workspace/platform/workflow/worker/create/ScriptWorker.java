@@ -1,23 +1,14 @@
 package code.pod.space.workspace.platform.workflow.worker.create;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.TaskService;
 import org.camunda.bpm.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.io.resource.ResourceUtil;
 import code.pod.space.workspace.platform.workflow.entity.types.Workspace;
 import code.pod.space.workspace.platform.workflow.util.SelfUtil;
 import code.pod.space.workspace.platform.workflow.util.WorkflowUtil;

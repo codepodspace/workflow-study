@@ -17,7 +17,6 @@ import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,7 +26,9 @@ import cn.hutool.core.io.resource.ResourceUtil;
 import code.pod.space.workspace.platform.workflow.entity.types.WorkflowDeployment;
 import code.pod.space.workspace.platform.workflow.entity.types.WorkflowHistoryBpmn;
 import code.pod.space.workspace.platform.workflow.entity.types.Workspace;
+import code.pod.space.workspace.platform.workflow.worker.create.AllocateResWorker;
 import code.pod.space.workspace.platform.workflow.worker.create.ApplyWorker;
+import code.pod.space.workspace.platform.workflow.worker.create.ScriptWorker;
 
 @RestController
 @RequestMapping("workflow")
@@ -44,6 +45,12 @@ public class WorkflowController {
 
     @Autowired
     private ApplyWorker applyWorker;
+
+    @Autowired
+    private AllocateResWorker allocateResWorker;
+
+    @Autowired
+    private ScriptWorker scriptWorker;
 
     @GetMapping("query/deploy/list")
     public List<WorkflowDeployment> queryDeployList() {
@@ -138,7 +145,27 @@ public class WorkflowController {
         ws.setCommandStatus("INIT");
 
         applyWorker.create(ws);
-        // applyWorker.applyCreateWorker();
+        applyWorker.applyCreateWorker();
         return ws.getUuid();
     }
+
+    @GetMapping("allocate/res")
+    public String allocateRes() {
+        allocateResWorker.allocateResWorker();
+        return "allocate resource success!";
+    }
+
+    @GetMapping("cancel")
+    public String cancel() {
+        
+        runtimeService.signalEventReceived("signal_cancle");
+
+        return "cancel success!";
+    }
+    
+    // @GetMapping("build/script")
+    // public String buildScript() {
+    //     scriptWorker;
+    //     return ws.getUuid();
+    // }
 }

@@ -59,7 +59,7 @@ public class AllocateResWorker {
                 log.info("创建工作空间>>开始>>{}>>工人:{}, 任务ID:{}, Workspace ID: {}",
                         task.getName(), workerName, task.getId(), workspaceId);
 
-                taskService.setVariable(task.getId(), "allocateSuccess", false);               
+                taskService.setVariable(task.getId(), "allocateSuccess", true);               
 
                 taskService.complete(task.getId());
                 log.info("创建工作空间>>完成>>{}>>工人:{}, 任务ID:{}, Workspace ID: {}",
